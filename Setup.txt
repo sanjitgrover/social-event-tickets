@@ -1,3 +1,31 @@
 npm install typescript ts-node-dev express @types/express
 
-test
+Two ways to setup repo:
+
+Option 1:
+git config --global user.name sanjitgrover
+git config --global user.email sanjit.grover@gmail.com
+ssh-keygen -t rsa -b 4096 -C sanjit.grover@gmail.com
+
+cat ~/.ssh/id_rsa.pub
+Copy public key to github Settings - SSH key
+
+ssh -T git@github.com
+
+git clone git@github.com:sanjitgrover/blogs-microservices.git
+
+
+or 
+
+Option 2:
+git config --global user.name sanjitgrover
+git config --global user.email sanjit.grover@gmail.com
+
+git clone https://github.com/sanjitgrover/social-event-tickets.git
+
+git config --global credential.helper store
+echo "https://github.com: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@github.com" | git credential-store --file ~/.git-credentials store
+
+git config --global user.password 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
+
+echo "https://github.com:your-token@github.com" | git credential-store --file ~/.git-credentials store
