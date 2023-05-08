@@ -1,5 +1,3 @@
-npm install typescript ts-node-dev express @types/express
-
 Two ways to setup repo:
 
 Option 1:
@@ -29,3 +27,26 @@ echo "https://github.com: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@github.com" | 
 git config --global user.password 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
 
 echo "https://github.com:your-token@github.com" | git credential-store --file ~/.git-credentials store
+
+
+npm install typescript ts-node-dev express @types/express
+
+
+SETUP SKAFFOLD
+
+USE SKAFFOLD to build and deploy using ONE COMMAND:
+curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
+sudo install skaffold /usr/local/bin/
+
+skaffold schema list
+
+Update skaffold.yaml: go to the folder from cmdline where this yaml file is:
+skaffold fix
+Copy Paste the generated config
+skaffold dev
+On stopping skaffold, all the created objects by skaffold are deleted
+
+f you did not see your server restart after changing the index.ts file, do the following:
+Open the package.json file in the ‘auth’ directory
+Find the ‘start’ script and Update the start script to the following:
+ts-node-dev --poll src/index.ts
