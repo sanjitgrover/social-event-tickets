@@ -1,0 +1,8 @@
+Changes in file not in skaffold's sync section --> skaffold --> rebuild image --> GC Build --> Source Code/Dockerfile --> 
+docker builder --> Updated image --> Update deployment --> GC Deployment --> K8s deployment
+
+In GC
+1. Create New Project - ticketing-dev
+2.Menu --> kubernetes --> Cluster --> Enable --> Create
+3.Standard Cluster --> Cluster Name=ticketing-dev --> us-central-1c --> 
+
