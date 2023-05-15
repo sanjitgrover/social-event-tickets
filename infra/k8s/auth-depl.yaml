@@ -14,10 +14,10 @@ spec:
     spec:
       containers:
         - name: auth
-          image: grover/auth
+          image: us.gcr.io/playground-s-11-0f38e988/auth
 ---
 apiVersion: v1
-kind: service
+kind: Service
 metadata:
   name: auth-srv
 spec:

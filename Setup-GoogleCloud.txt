@@ -1,8 +1,75 @@
+Install Skaffold
+curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
+sudo install skaffold /usr/local/bin/
+
+skaffold schema list
+
+Update skaffold.yaml, go to the folder from cmdline where this yaml file is:
+skaffold fix
+Copy Paste the generated config
+
 Changes in file not in skaffold's sync section --> skaffold --> rebuild image --> GC Build --> Source Code/Dockerfile --> 
 docker builder --> Updated image --> Update deployment --> GC Deployment --> K8s deployment
 
 In GC
 1. Create New Project - ticketing-dev
 2.Menu --> kubernetes --> Cluster --> Enable --> Create
-3.Standard Cluster --> Cluster Name=ticketing-dev --> us-central-1c --> 
+3.Standard Cluster --> Cluster Name=ticketing-dev --> us-central-1c --> Nodes=3
+
+To communicate with GC cluster locally install google cloud SDK
+cloud.google.com/sdk/docs/quickstarts
+
+Otherwise, use Google CloudShell Editor (like AWS Cloud9)
+- Setup Cloudshell Editor and start in new tab
+
+Commands for using SDK
+- gcloud auth login (Nor Req for Cloudshell)
+- gcloud init --> 1 to Reconfigure --> 1 To select existing Account --> Pick current Project's ID
+--> Select Region 
+
+Setup Google Cloud context
+gcloud container clusters get-credentials ticketing-dev
+
+
+Enable Google Cloud Build
+Google Cloud Hamburger menu --> CI/CD section --> Click Cloud Build --> Click Enable
+Go to skaffold.yaml --> build: and add
+googleCloudBuild:
+  projectId: <Google project Id>
+.
+.
+.
+  - image: us.gcr.io/<Google project Id>/auth
+
+Similarly, update image names whereever they are used 
+
+
+Install Ingress-nginx from: kubernetes.github.io/ingress-nginx --> Deployment
+Go to GCE - GKE link and get the user cluster-admin permissions
+kubectl create clusterrolebinding cluster-admin-binding \
+  --clusterrole cluster-admin \
+  --user $(gcloud config get-value account)
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.7.1/deploy/static/provider/cloud/deploy.yaml
+
+
+Check Ingress Load Balancer
+Google Cloud Hamburger menu --> Networking Section --> Network Services --> 
+Load Balancing --> Click on load balancer and get IP
+
+Setup Load Balancer as Host
+From Cloudshell Terminal --> vi /etc/hosts
+<Loadbalancer IP> ticketing.dev
+
+
+
+
+
+
+
+
+
+
+
+
 
